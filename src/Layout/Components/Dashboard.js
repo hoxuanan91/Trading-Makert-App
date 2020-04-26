@@ -3,51 +3,42 @@ import React, { useState, useEffect  } from "react";
 const Dashboard = () => {
   const axios = require("axios");
   const [data, setData] = useState({
-    c: 0,
-    h: 0,
-    l: 0,
-    o: 277.2,
-    pc: 275.03,
-    t: 1587911584,
+    exchangeRate: 0
   });
 
   const effect = useEffect(() => {
-    const getData = () => {
+    const getData = () => { //ZQZFOJRK0B5OUBYJ
         axios
           .get(
-            "https://finnhub.io/api/v1/quote?symbol=AAPL&token=bqiq1ffrh5r89luqplk0"
-          )
+                'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=VND&apikey=ZQZFOJRK0B5OUBYJ')
           .then(function (response) {
-            // handle success
-            console.log(response.data);
-            setData(response.data);
+            let exchangeRate = response.data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+            exchangeRate = Number(exchangeRate);
+            exchangeRate = Number(exchangeRate.toFixed(2));
+            setData({exchangeRate : exchangeRate});
           })
           .catch(function (error) {
             // handle error
             console.log(error);
           })
       };
-      setTimeout(function(){ getData(); }, 3000); 
+      setTimeout(function(){ getData(); }, 10000); 
       return ;
-  },[data]);
+  },[data.exchangeRate]);
 
   return (
     <div>
       <table class="table table-striped table-dark">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">c</th>
-            <th scope="col">h</th>
-            <th scope="col">l</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Rate exchange</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>{data.c}</td>
-            <td>{data.h}</td>
-            <td>{data.l}</td>
+            <th scope="row">EUR</th>
+            <td>{data.exchangeRate}</td>
           </tr>
         </tbody>
       </table>
