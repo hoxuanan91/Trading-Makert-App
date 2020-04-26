@@ -16,10 +16,11 @@ const Dashboard = () => {
             exchangeRate = Number(exchangeRate);
             exchangeRate = Number(exchangeRate.toFixed(2));
             setData({exchangeRate : exchangeRate});
+            
           })
           .catch(function (error) {
             // handle error
-            console.log(error);
+            console.log(error); 
           })
       };
       setTimeout(function(){ getData(); }, 10000); 
