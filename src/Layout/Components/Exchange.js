@@ -1,51 +1,64 @@
-import React, { useState, useEffect  } from "react";
+import React, { Component } from "react";
 
-const Exchange = () => {
-  
-  const axios = require("axios");
-  const [data, setData] = useState({
-    exchangeRate: 0
-  });
+class Exchange extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        rates: [],
+      },
+    };
+  }
 
-  const effect = useEffect(() => {
-    const getData = () => { //ZQZFOJRK0B5OUBYJ
-        axios
-          .get(
-                'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=VND&apikey=ZQZFOJRK0B5OUBYJ')
-          .then(function (response) {
-            let exchangeRate = response.data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-            exchangeRate = Number(exchangeRate);
-            exchangeRate = Number(exchangeRate.toFixed(2));
-            setData({exchangeRate : exchangeRate});
-            
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error); 
-          })
-      };
-      setTimeout(function(){ getData(); }, 10000); 
-      return ;
-  },[data.exchangeRate]);
+  componentDidMount() {
+    var self = this;
+    const axios = require("axios");
+    axios
+      .get("https://api.exchangeratesapi.io/latest")
+      .then(function (response) {
+        console.log("response", response);
+        self.setState({ data: response.data });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }
 
-  return (
-    <div>
-      <table class="table table-striped table-dark">
-        <thead>
-          <tr>
-            <th scope="col">Currency</th>
-            <th scope="col">Rate exchange</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">EUR</th>
-            <td>{data.exchangeRate}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
+  render() {
+    let rates = this.state.data.rates;
+    let items = (data) => {
+      console.log("data render", data);
+      if (data) {
+        return Object.keys(data).map((item, index) => {
+          return (
+            <React.Fragment>
+              <tr>
+                <th scope="row">{index}</th>
+                <td>{item}</td>
+                <td>{data[item]}</td>
+              </tr>
+            </React.Fragment>
+          );
+        });
+      }
+    };
+
+    return (
+      <div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Devise</th>
+              <th scope="col">Rate</th>
+            </tr>
+          </thead>
+          <tbody>{items(rates)}</tbody>
+        </table>
+      </div>
+    );
+  }
+}
 
 export default Exchange;
