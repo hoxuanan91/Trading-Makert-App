@@ -46,8 +46,8 @@ const Dashboard = () => {
 
   return (
     <div >
-     <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" style={{ width: "10rem"  }} src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/trailhead_basics/get-started-with-trailhead/images/7c5a7f114fd815473d6d800b896b0a64_astro-new-flogo.png" />
+     <Card style={{ width: "20rem" }}>
+        <Card.Img variant="top" style={{ width: "10rem", height : "12rem"  }} src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/trailhead_basics/get-started-with-trailhead/images/7c5a7f114fd815473d6d800b896b0a64_astro-new-flogo.png" />
         <Card.Body>
           <Card.Title>What is new today</Card.Title>
           <Card.Text>
@@ -55,7 +55,8 @@ const Dashboard = () => {
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>The weather now in Paris is {data.weather_data.weather_description} </ListGroupItem>
+          <ListGroupItem>The weather now in Paris is {data.weather_data.weather_descriptions}  &nbsp; &nbsp;
+          and temperature is about {data.weather_data.temperature} °C   </ListGroupItem>
           <ListGroupItem><Link to="/about">About</Link></ListGroupItem>
         </ListGroup>
         <Card.Body>
