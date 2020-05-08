@@ -17,7 +17,7 @@ const Dashboard = () => {
     }
   });
 
-  const effect = useEffect(() => {
+ useEffect(() => {
     const getData = () => { //ZQZFOJRK0B5OUBYJ
         axios
           .get(

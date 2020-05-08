@@ -5,8 +5,9 @@ class Exchange extends Component {
     super(props);
     this.state = {
       data: {
-        rates: [],
+        rates: [],        
       },
+      keyWord : null
     };
   }
 
@@ -25,12 +26,19 @@ class Exchange extends Component {
       });
   }
 
+  searchKeyWorld = (e) => {
+    this.setState({keyWord:e.target.value });
+  }
+
   render() {
     let rates = this.state.data.rates;
+    let keyWord = this.state.keyWord;
     let items = (data) => {
-      console.log("data render", data);
+      console.log("data render", data);      
       if (data) {
-        return Object.keys(data).map((item, index) => {
+        const dom =  Object.keys(data).map((item, index) => {
+          keyWord = (keyWord) ? keyWord.toUpperCase() : null;
+          if( item.includes(keyWord) || keyWord === null)
           return (
             <tr key={index}>
               <th scope="row">{index}</th>
@@ -39,11 +47,21 @@ class Exchange extends Component {
             </tr>
           );
         });
+        return dom;
       }
     };
 
     return (
       <div>
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={this.searchKeyWorld}
+            />
+            
+          
         <table class="table table-hover">
           <thead>
             <tr>
