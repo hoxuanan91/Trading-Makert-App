@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 
 class NavBar extends Component {
   render() {
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           Makert informations
         </a>
         <button
@@ -27,9 +28,7 @@ class NavBar extends Component {
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                Exchange
-              </a>
+                <Link to="/exchange"><div class="nav-link" >Exchange</div></Link>                
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">

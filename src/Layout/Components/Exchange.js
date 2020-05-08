@@ -32,13 +32,11 @@ class Exchange extends Component {
       if (data) {
         return Object.keys(data).map((item, index) => {
           return (
-            <React.Fragment>
-              <tr>
-                <th scope="row">{index}</th>
-                <td>{item}</td>
-                <td>{data[item]}</td>
-              </tr>
-            </React.Fragment>
+            <tr key={index}>
+              <th scope="row">{index}</th>
+              <td>{item}</td>
+              <td>{data[item]}</td>
+            </tr>
           );
         });
       }
@@ -54,7 +52,9 @@ class Exchange extends Component {
               <th scope="col">Rate</th>
             </tr>
           </thead>
-          <tbody>{items(rates)}</tbody>
+          <tbody>
+            <React.Fragment>{items(rates)}</React.Fragment>
+          </tbody>
         </table>
       </div>
     );
